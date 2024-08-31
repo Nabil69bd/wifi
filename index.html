@@ -16,7 +16,7 @@
             background: radial-gradient(circle, #ff7e5f, #feb47b);
             color: #fff;
             text-align: center;
-            overflow: hidden;
+            overflow: auto; /* Allow scrolling */
         }
 
         #container {
@@ -27,6 +27,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             animation: fadeIn 2s forwards 1s;
             backdrop-filter: blur(10px);
+            margin: 20px; /* Ensure it fits within the viewport */
         }
 
         h1 {
@@ -67,6 +68,7 @@
             box-shadow: 0px 8px 20px rgba(255, 69, 0, 0.5);
             transition: all 0.3s ease;
             animation: glowing 2s infinite alternate;
+            margin: 10px 0; /* Adjust margin as needed */
         }
 
         button:hover {
