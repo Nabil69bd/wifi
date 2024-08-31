@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #ff7e5f, #feb47b);
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 2s forwards 1s;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.3em;
+            color: #FFD700; /* Gold */
+            text-shadow: 0px 0px 20px rgba(255, 215, 0, 1);
+            animation: pulse 2s infinite;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 1em;
+            color: #FFFFFF; /* White */
+            text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8);
+        }
+
+        p {
+            font-size: 1.3em;
+            margin-bottom: 1.5em;
+            color: #FFFFFF; /* White */
+        }
+
+        #surprise {
+            display: none;
+            animation: fadeInUp 2s forwards;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #FF4500; /* OrangeRed */
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0px 8px 20px rgba(255, 69, 0, 0.5);
+            transition: all 0.3s ease;
+            animation: glowing 2s infinite alternate;
+        }
+
+        button:hover {
+            background-color: #FF6347; /* Tomato */
+            box-shadow: 0px 15px 30px rgba(255, 99, 71, 0.7);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes glowing {
+            0% { box-shadow: 0 0 10px #FF4500, 0 0 20px #FF4500, 0 0 30px #FF4500, 0 0 40px #FF4500; }
+            100% { box-shadow: 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFD700, 0 0 50px #FFD700; }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #FFD700; /* Gold */
+            animation: confetti 5s infinite ease-in;
+        }
+
+        .confetti:nth-child(2) { background-color: #FF69B4; }
+        .confetti:nth-child(3) { background-color: #ADFF2F; }
+        .confetti:nth-child(4) { background-color: #1E90FF; }
+        .confetti:nth-child(5) { background-color: #FF4500; }
+
+        .confetti:nth-child(even) {
+            animation-duration: 6s;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: #FFF;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 1);
+            animation: sparkle 1.5s infinite ease-in-out;
+        }
+
+        .sparkle:nth-child(2) { animation-duration: 2s; }
+        .sparkle:nth-child(3) { animation-duration: 2.5s; }
+
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(720deg); }
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Happy Birthday, [Her Name]!</h1>
+        <h2>Wishing you a day filled with love and joy</h2>
+        <p>I've prepared something special just for you. Tap the button to reveal your surprise!</p>
+        <button onclick="showSurprise()">💖 Open Your Surprise 💖</button>
+
+        <div id="surprise">
+            <h2>🎉 Surprise! 🎉</h2>
+            <p>Your love lights up my life. I hope this small gift makes your day as bright as you make mine every day. I love you more than words can express! 💖</p>
+            <video id="birthdayVideo" width="300" controls style="margin-top: 20px;">
+                <source src="birthday_message.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <br><br>
+            <button id="nextButton" onclick="redirect()">➡️ Next ➡️</button>
+        </div>
+    </div>
+
+    <audio id="background-audio" src="happy_birthday_song.mp3" loop></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var audio = document.getElementById('background-audio');
+            if (audio) {
+                audio.play();
+                document.body.addEventListener('click', function() {
+                    audio.muted = false;
+                }, { once: true });
+            } else {
+                console.error('Audio element not found!');
+            }
+        });
+
+        function showSurprise() {
+            document.getElementById('surprise').style.display = 'block';
+            createConfetti();
+            createSparkles();
+        }
+
+        function redirect() {
+            window.location.href = 'https://example.com';
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(confetti);
+            }
+        }
+
+        function createSparkles() {
+            for (let i = 0; i < 50; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(sparkle);
+            }
+        }
+    </script>
+</body>
+</html>
